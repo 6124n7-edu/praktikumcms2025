@@ -1,1 +1,0 @@
-# praktikumcms2025
