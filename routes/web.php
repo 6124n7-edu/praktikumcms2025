@@ -18,10 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts', [PostController::class, 'index']);
-Route::get('/posts/{id}', [PostController::class, 'show']);
-Route::get('/posts/{id}/edit', [PostController::class, 'edit']);
-Route::get('/posts/{id}/delete', [PostController::class, 'delete']);
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+Route::get('/posts/{id}/delete', [PostController::class, 'delete'])->name('posts.delete');
 
 //on hold:
 //Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
