@@ -5,6 +5,8 @@
 @section('content')
     <h1>Daftar Post</h1>
 
+    <a href="{{ route('posts.create') }}">+ Tambah Post</a>
+
     @if(count($posts) > 0)
         <ul>
             @foreach ($posts as $post)

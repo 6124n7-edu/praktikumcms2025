@@ -26,6 +26,25 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        //Melakukan validasi input
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|min:10'
+        ]);
+
+        //Simpan ke database
+        Article::create($validated);
+
+        return redirect('/posts')->with('success', 'Post berhasil ditambah');
+    }
+
     // e
     public function edit($id)
     {
@@ -41,11 +60,11 @@ class PostController extends Controller
 
     //On hold:
     // Store a new post
-    public function store(Request $request)
-    {
-        $post = Post::create($request->all());
-        return response()->json($post, 201);
-    }
+    //public function store(Request $request)
+    //{
+        //$post = Post::create($request->all());
+        //return response()->json($post, 201);
+    //}
 
     // Update a post
     public function update(Request $request, $id)
