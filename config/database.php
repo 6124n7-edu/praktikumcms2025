@@ -37,12 +37,13 @@ return [
 
         'oracle' => [
             'driver' => 'oracle',
-            'tns' => env('DB_TNS', ''),
+            'tns' => '',
             'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '1521'),
-            'database' => env('DB_DATABASE', 'XE'),
-            'username' => env('DB_USERNAME', 'system'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => env('DB_DATABASE', 'ORCLPDB'),
+            'service_name'  => env('DB_DATABASE', 'orclpdb'),
+            'username' => env('DB_USERNAME', 'laravel_grant'),
+            'password' => env('DB_PASSWORD', 'lrvl612'),
             'charset' => 'AL32UTF8',
             'prefix' => '',
             'prefix_schema' => env('DB_SCHEMA_PREFIX', ''),

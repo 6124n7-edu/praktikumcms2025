@@ -2,38 +2,27 @@
 
 namespace App\Models;
 
-//use Illuminate\Database\Eloquent\Factories\HasFactory;
-//use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-//class Post extends Model
-class Post
+class Post extends Model
 {
-    //Fungsi test database
-    protected static function getDummyData()
-    {
-        return [
-            ['id' => 1, 'title' => 'Belajar Laravel', 'content' => 'Laravel adalah framework PHP terbaik.'],
-            ['id' => 2, 'title' => 'Pengenalan MVC', 'content' => 'MVC adalah framework PHP terbaik.'],
-            ['id' => 3, 'title' => 'Routing di Laravel', 'content' => 'Routing adalah framework PHP terbaik.'],
-        ];
-    }
+    use HasFactory;
+
+    protected $table = 'posts';
+
+    protected $fillable = ['title', 'content', 'user_id', 'category_id'];
 
     //Ambil semua data
-    public static function all()
+    public static function getAll()
     {
-        return self::getDummyData();
+        return Post::all();
     }
 
     //Cari data dengan id
     public static function find($id)
     {
-        $posts = self::getDummyData();
-        foreach($posts as $post) {
-            if ($post['id'] == $id) {
-                return $post;
-            }
-        }
-        return null;
+        return Post::where('id', $id)->first();
     }
 
     //use HasFactory;
