@@ -25,6 +25,8 @@ class Post extends Model
         return Post::where('id', $id)->first();
     }
 
+    
+
     //use HasFactory;
 
     //protected $fillable = ['title', 'content', 'user_id', 'category_id'];

@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
+use App\Models\Category;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
     // Display all posts
     public function index()
     {
+        // 1.a. Retrieve data and sorted by ID from large to small ID
+        $postsSortedById = Post::orderBy('id', 'desc')->get();
+
+        // 1.b. Calculate the total data
+        $totalUsers = User::count(); // Calculating total users
+
         //return response()->json(Post::all());
         $posts = Post::all();
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('posts', 'postsSortedById', 'totalUsers'));
     }
 
     // Show a single post
@@ -26,6 +36,7 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
+    // Display form untuk buat post baru
     public function create()
     {
         return view('posts.create');
@@ -45,7 +56,7 @@ class PostController extends Controller
         return redirect('/posts')->with('success', 'Post berhasil ditambah');
     }
 
-    // e
+    // Display form untuk edit post
     public function edit($id)
     {
         $post = Post::find($id);
