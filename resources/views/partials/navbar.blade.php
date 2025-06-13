@@ -24,29 +24,7 @@
                     <a class="nav-link" href="contact.html">Contact</a>
                 </li>
 
-                {{-- ADDED LOGOUT AND LOGIN BUTTONS HERE --}}
-                @auth {{-- Blade directive: Only show if a user is authenticated --}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('posts.create') }}">Create Post</a> {{-- Example: link to create post --}}
-                    </li>
-                    <li class="nav-item">
-                        <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                            @csrf {{-- CSRF token for security --}}
-                            <button type="submit" class="nav-link btn btn-link" style="color: inherit; text-decoration: none; padding: .5rem 1rem;">
-                                Logout ({{ Auth::user()->name }}) {{-- Optionally show username --}}
-                            </button>
-                        </form>
-                    </li>
-                @else {{-- Blade directive: Only show if no user is authenticated --}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">Login</a>
-                    </li>
-                    {{-- If you have a registration route, you can add it here too --}}
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">Register</a>
-                    </li> --}}
-                @endauth
-                {{-- END ADDED LOGOUT AND LOGIN BUTTONS --}}
+
 
             </ul>
             <!-- Social Link -->
