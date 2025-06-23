@@ -29,11 +29,23 @@ class PostController extends Controller
     public function show($id)
     {
         //return response()->json(Post::findOrFail($id));
-        $post = Post::find($id);
-        if (!$post) {
-            abort(404);
-        }
+        //$post = Post::find($id);
+        //if (!$post) {
+        //    abort(404);
+        //}
+        
+        $post = Post::findOrFail($id);
         return view('posts.show', compact('post'));
+    }
+
+    public function customShow($id)
+    {
+        try {
+            $post = Post::findOrFail($id);
+            return view('posts.show', compact('post'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+           abort(404); // Laravel default 404 error
+        }
     }
 
     // Display form untuk buat post baru

@@ -38,6 +38,7 @@ Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('ima
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/posts/custom-show/{id}', [PostController::class, 'customShow']);
 
 // Group routes menggunakan role 'author' atau 'admin'
 //Route::middleware(['auth', 'check.role:admin,author'])->group(function () {
