@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log; // Logging -> Import Library
 //use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -41,9 +42,13 @@ class PostController extends Controller
     public function customShow($id)
     {
         try {
+            Log::info('Mencoba fetch post dengan ID: ' . $id); // ✅ Logging -> info seblum coba
+
             $post = Post::findOrFail($id);
             return view('posts.show', compact('post'));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            Log::error('Post tidak ditemukan dengan ID: ' . $id); // ❌ Logging -> error jika posting tdk ada
+
            abort(404); // Laravel default 404 error
         }
     }
