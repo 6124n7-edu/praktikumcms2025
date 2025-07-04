@@ -10,7 +10,7 @@ class ImageController extends Controller
 {
     public function create()
     {
-        return view('upload');
+        return view('images.create');
     }
 
     public function store(Request $request)
@@ -27,7 +27,7 @@ class ImageController extends Controller
             'image_path' => $imagePath,
         ]);
 
-        return view('upload', ['image' => $image])->with('success', 'Gambar berhasil di upload');
+        return view('images.create', ['image' => $image])->with('success', 'Gambar berhasil di upload');
     }
 
     // Untuk delete
@@ -48,7 +48,7 @@ class ImageController extends Controller
     {
         $images = Image::all();
         // You'll need to create this new view file: resources/views/images_list.blade.php
-        return view('images_list', compact('images'));
+        return view('images.index', compact('images'));
 
         //return "Hello from Image Index!";
     }

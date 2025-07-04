@@ -12,8 +12,16 @@ use Illuminate\Support\Facades\Log; // Logging -> Import Library
 
 class PostController extends Controller
 {
-    // Display all posts
     public function index()
+    {
+        $posts = Post::latest()->get();
+
+        // Return the correct view and pass the $posts variable to it.
+        return view('posts.index', compact('posts'));
+    }
+    
+    // Display all posts
+    public function list()
     {
         // 1.a. Retrieve data and sorted by ID from large to small ID
         $postsSortedById = Post::orderBy('id', 'desc')->get();
@@ -23,7 +31,7 @@ class PostController extends Controller
 
         //return response()->json(Post::all());
         $posts = Post::all();
-        return view('posts.index', compact('posts', 'postsSortedById', 'totalUsers'));
+        return view('posts.list', compact('posts', 'postsSortedById', 'totalUsers'));
     }
 
     // Show a single post
@@ -68,7 +76,7 @@ class PostController extends Controller
         ]);
 
         //Simpan ke database
-        Article::create($validated);
+        Post::create($validated);
 
         return redirect('/posts')->with('success', 'Post berhasil ditambah');
     }
@@ -97,15 +105,32 @@ class PostController extends Controller
     // Update a post
     public function update(Request $request, $id)
     {
+        // 1. Find the post
         $post = Post::findOrFail($id);
-        $post->update($request->all());
-        return response()->json($post);
+
+        // 2. Validate the incoming data (same as store)
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|min:10',
+        ]);
+
+        // 3. Update the post with validated data
+        $post->update($validated);
+
+        // 4. Redirect back to the post with a success message
+        return redirect()->route('posts.show', $post->id)->with('success', 'Post berhasil diperbarui!');
     }
 
     // Delete a post
     public function destroy($id)
     {
-        Post::findOrFail($id)->delete();
-        return response()->json(['message' => 'Post deleted']);
+        // 1. Find the post or fail
+        $post = Post::findOrFail($id);
+
+        // 2. Delete the post
+        $post->delete();
+
+        // 3. Redirect to the index page with a success message
+        return redirect()->route('posts.index')->with('success', 'Post berhasil dihapus!');
     }
 }
